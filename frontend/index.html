@@ -3,10 +3,115 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Horizon TMS</title>
+    <title>Horizon Truck Line LLC – TMS</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(to bottom right, #0a0f24, #1b2a4a);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+      }
+
+      header {
+        padding: 40px 20px;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      p.subtitle {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        margin-bottom: 40px;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        width: 90%;
+        max-width: 900px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 25px;
+        border-radius: 12px;
+        backdrop-filter: blur(6px);
+        transition: 0.3s;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .card:hover {
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateY(-5px);
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        margin-top: auto;
+        padding: 20px;
+        opacity: 0.6;
+        font-size: 0.9rem;
+      }
+    </style>
   </head>
+
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <header>
+      <h1>Horizon Truck Line LLC</h1>
+      <p class="subtitle">Transportation Management System</p>
+    </header>
+
+    <div class="container">
+      <div class="card" onclick="location.href='/clients'">
+        <h3>Clients</h3>
+        <p>Manage customers and accounts</p>
+      </div>
+
+      <div class="card" onclick="location.href='/drivers'">
+        <h3>Drivers</h3>
+        <p>Driver profiles and documents</p>
+      </div>
+
+      <div class="card" onclick="location.href='/trucks'">
+        <h3>Trucks</h3>
+        <p>Fleet management and equipment</p>
+      </div>
+
+      <div class="card" onclick="location.href='/loads'">
+        <h3>Loads</h3>
+        <p>Create and track loads</p>
+      </div>
+
+      <div class="card" onclick="location.href='/trips'">
+        <h3>Trips</h3>
+        <p>Assign loads and dispatch</p>
+      </div>
+
+      <div class="card" onclick="location.href='/invoices'">
+        <h3>Invoices</h3>
+        <p>Billing and financial reports</p>
+      </div>
+    </div>
+
+    <footer>
+      © 2025 Horizon Truck Line LLC – All Rights Reserved
+    </footer>
   </body>
 </html>
