@@ -1,0 +1,9 @@
+[build]
+builder = "nixpacks"
+
+[build.nixpacks]
+appDirectory = "apps/api"
+
+[deploy]
+startCommand = "npm run start:prod"
+healthcheckPath = "/dashboard"
