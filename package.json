@@ -10,3 +10,6 @@
     "build:web": "npm --workspace apps/web run build"
   }
 }
+"engines": {
+  "node": "20.x"
+}
