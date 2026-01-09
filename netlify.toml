@@ -1,6 +1,6 @@
 [build]
   base = "apps/web"
-  command = "npm install && npm run build"
+  command = "rm -rf node_modules && npx -y pnpm@9.15.3 install --no-frozen-lockfile && npx -y pnpm@9.15.3 run build"
   publish = "dist"
 
 [build.environment]
