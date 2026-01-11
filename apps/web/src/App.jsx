@@ -14,6 +14,7 @@ export default function App() {
       <Route element={<AppLayout />}>
         <Route path="/app" element={<Navigate to="/app/dashboard" replace />} />
         <Route path="/app/dashboard" element={<Dashboard />} />
+
         <Route path="/app/clients" element={<Clients />} />
         <Route path="/app/drivers" element={<PlaceholderModule title="Drivers" />} />
         <Route path="/app/trucks" element={<PlaceholderModule title="Trucks" />} />
