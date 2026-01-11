@@ -9,17 +9,17 @@ export class ClientsController {
 
   @Get()
   list(
-    @Query('search') search?: string,
+    @Query('search') search = '',
     @Query('isActive') isActive?: string,
-    @Query('page') page?: string,
-    @Query('pageSize') pageSize?: string,
+    @Query('page') page = '1',
+    @Query('pageSize') pageSize = '10',
   ) {
-    return this.service.list({ search, isActive, page, pageSize });
-  }
-
-  @Get(':id')
-  get(@Param('id') id: string) {
-    return this.service.get(id);
+    return this.service.list({
+      search,
+      isActive,
+      page: Number(page) || 1,
+      pageSize: Number(pageSize) || 10,
+    });
   }
 
   @Post()
@@ -34,7 +34,6 @@ export class ClientsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    this.service.remove(id);
-    return { ok: true };
+    return this.service.remove(id);
   }
 }

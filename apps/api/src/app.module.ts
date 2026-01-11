@@ -5,7 +5,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ClientsModule } from './clients/clients.module';
 
 @Module({
-  imports: [DashboardModule],
+  imports: [DashboardModule, ClientsModule],
   controllers: [AppController],
   providers: [AppService],
 })
