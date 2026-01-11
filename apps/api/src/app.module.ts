@@ -6,9 +6,8 @@ import { ClientsModule } from './clients/clients.module';
 import { DriversModule } from './drivers/drivers.module';
 
 @Module({
-  imports: [DashboardModule, ClientsModule],
+  imports: [DashboardModule, ClientsModule, DriversModule],
   controllers: [AppController],
   providers: [AppService],
-  imports: [DashboardModule, ClientsModule, DriversModule],
 })
 export class AppModule {}
