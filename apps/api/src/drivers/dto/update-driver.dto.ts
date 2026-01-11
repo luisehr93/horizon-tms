@@ -5,6 +5,7 @@ export class UpdateDriverDto {
   licenseNumber?: string;
   state?: string;
   notes?: string;
+
   isAvailable?: boolean;
   isActive?: boolean;
 }

@@ -5,6 +5,8 @@ export class CreateDriverDto {
   licenseNumber?: string;
   state?: string;
   notes?: string;
-  isAvailable?: boolean; // para KPI
+
+  // Flags para operación
+  isAvailable?: boolean; // KPI Available Drivers
   isActive?: boolean;
 }

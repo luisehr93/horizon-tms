@@ -20,13 +20,18 @@ type Driver = {
 export class DriversService {
   private drivers: Driver[] = [];
 
-  list({ search, isActive, isAvailable, page, pageSize }: { search: string; isActive?: string; isAvailable?: string; page: number; pageSize: number }) {
+  list(params: { search: string; isActive?: string; isAvailable?: string; page: number; pageSize: number }) {
+    const { search, isActive, isAvailable, page, pageSize } = params;
+
     const q = (search || '').toLowerCase().trim();
     let filtered = this.drivers;
 
     if (q) {
       filtered = filtered.filter((d) => {
-        const hay = [d.name, d.phone, d.email, d.licenseNumber, d.state].filter(Boolean).join(' ').toLowerCase();
+        const hay = [d.name, d.phone, d.email, d.licenseNumber, d.state]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
         return hay.includes(q);
       });
     }
@@ -59,6 +64,7 @@ export class DriversService {
       createdAt: now,
       updatedAt: now,
     };
+
     this.drivers.unshift(driver);
     return driver;
   }
@@ -66,6 +72,7 @@ export class DriversService {
   update(id: string, dto: UpdateDriverDto) {
     const idx = this.drivers.findIndex((d) => d.id === id);
     if (idx === -1) return { message: 'Not found' };
+
     const now = new Date().toISOString();
     this.drivers[idx] = { ...this.drivers[idx], ...dto, updatedAt: now };
     return this.drivers[idx];
