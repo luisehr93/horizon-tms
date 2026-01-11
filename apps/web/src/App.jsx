@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import PlaceholderModule from "./pages/PlaceholderModule.jsx";
 import AppLayout from "./components/layout/AppLayout.jsx";
 import Clients from "./pages/Clients.jsx";
+import Drivers from "./pages/Drivers.jsx";
 
 export default function App() {
   return (
@@ -16,7 +17,7 @@ export default function App() {
         <Route path="/app/dashboard" element={<Dashboard />} />
 
         <Route path="/app/clients" element={<Clients />} />
-        <Route path="/app/drivers" element={<PlaceholderModule title="Drivers" />} />
+        <Route path="/app/drivers" element={<Drivers />} />
         <Route path="/app/trucks" element={<PlaceholderModule title="Trucks" />} />
         <Route path="/app/loads" element={<PlaceholderModule title="Loads" />} />
         <Route path="/app/trips" element={<PlaceholderModule title="Trips" />} />
