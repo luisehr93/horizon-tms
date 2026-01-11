@@ -1,4 +1,4 @@
-import http from "./http";
+import { apiGet, apiPost, apiPatch, apiDelete } from "./http";
 
 export async function listClients({ search = "", isActive = "", page = 1, pageSize = 10 } = {}) {
   const params = new URLSearchParams();
@@ -6,17 +6,17 @@ export async function listClients({ search = "", isActive = "", page = 1, pageSi
   if (isActive !== "") params.set("isActive", isActive);
   params.set("page", String(page));
   params.set("pageSize", String(pageSize));
-  return http(`/clients?${params.toString()}`);
+  return apiGet(`/clients?${params.toString()}`);
 }
 
 export async function createClient(payload) {
-  return http(`/clients`, { method: "POST", body: JSON.stringify(payload) });
+  return apiPost(`/clients`, payload);
 }
 
 export async function updateClient(id, payload) {
-  return http(`/clients/${id}`, { method: "PATCH", body: JSON.stringify(payload) });
+  return apiPatch(`/clients/${id}`, payload);
 }
 
 export async function deleteClient(id) {
-  return http(`/clients/${id}`, { method: "DELETE" });
+  return apiDelete(`/clients/${id}`);
 }
