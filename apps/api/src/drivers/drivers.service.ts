@@ -83,11 +83,16 @@ export class DriversService {
     this.drivers = this.drivers.filter((d) => d.id !== id);
     return { deleted: before - this.drivers.length };
   }
-}
 
 function rid() {
   return Math.random().toString(16).slice(2) + Date.now().toString(16);
-}
+}z
+@Injectable()
+export class DriversService {
+  private drivers: Driver[] = [];
+
+  // ... tus métodos: list(), create(), update(), remove()
+
   getStats() {
     const totalDrivers = this.drivers.length;
     const activeDrivers = this.drivers.filter((d) => d.isActive).length;
@@ -95,3 +100,4 @@ function rid() {
 
     return { totalDrivers, activeDrivers, availableDrivers };
   }
+}
