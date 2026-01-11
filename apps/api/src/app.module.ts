@@ -3,10 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ClientsModule } from './clients/clients.module';
+import { DriversModule } from './drivers/drivers.module';
 
 @Module({
   imports: [DashboardModule, ClientsModule],
   controllers: [AppController],
   providers: [AppService],
+  imports: [DashboardModule, ClientsModule, DriversModule],
 })
 export class AppModule {}
