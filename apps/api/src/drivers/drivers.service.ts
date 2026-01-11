@@ -88,3 +88,10 @@ export class DriversService {
 function rid() {
   return Math.random().toString(16).slice(2) + Date.now().toString(16);
 }
+  getStats() {
+    const totalDrivers = this.drivers.length;
+    const activeDrivers = this.drivers.filter((d) => d.isActive).length;
+    const availableDrivers = this.drivers.filter((d) => d.isActive && d.isAvailable).length;
+
+    return { totalDrivers, activeDrivers, availableDrivers };
+  }
