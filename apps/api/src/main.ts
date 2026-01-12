@@ -5,12 +5,9 @@ async function bootstrap() {
 const app = await NestFactory.create(AppModule);
 
 app.enableCors({
-  origin: [
-    'https://horizontruck.netlify.app',
-    // si usas preview deploys en netlify, añade también:
-    // /^https:\/\/.*--horizontruck\.netlify\.app$/,
-  ],
+  origin: ['https://horizontruck.netlify.app'],
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 });
 
   const port = Number(process.env.PORT) || 8080;
