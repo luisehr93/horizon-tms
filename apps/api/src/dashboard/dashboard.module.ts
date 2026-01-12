@@ -4,7 +4,7 @@ import { DashboardService } from './dashboard.service';
 import { DriversModule } from '../drivers/drivers.module';
 
 @Module({
-  imports: [DriversModule],
+  imports: [DriversModule], // 👈 clave
   controllers: [DashboardController],
   providers: [DashboardService],
 })
