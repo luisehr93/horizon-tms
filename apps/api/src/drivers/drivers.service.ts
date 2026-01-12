@@ -20,7 +20,13 @@ type Driver = {
 export class DriversService {
   private drivers: Driver[] = [];
 
-  list(params: { search: string; isActive?: string; isAvailable?: string; page: number; pageSize: number }) {
+  list(params: {
+    search: string;
+    isActive?: string;
+    isAvailable?: string;
+    page: number;
+    pageSize: number;
+  }) {
     const { search, isActive, isAvailable, page, pageSize } = params;
 
     const q = (search || '').toLowerCase().trim();
@@ -84,20 +90,14 @@ export class DriversService {
     return { deleted: before - this.drivers.length };
   }
 
-function rid() {
-  return Math.random().toString(16).slice(2) + Date.now().toString(16);
-}z
-@Injectable()
-export class DriversService {
-  private drivers: Driver[] = [];
-
-  // ... tus métodos: list(), create(), update(), remove()
-
   getStats() {
     const totalDrivers = this.drivers.length;
     const activeDrivers = this.drivers.filter((d) => d.isActive).length;
     const availableDrivers = this.drivers.filter((d) => d.isActive && d.isAvailable).length;
-
     return { totalDrivers, activeDrivers, availableDrivers };
   }
+}
+
+function rid() {
+  return Math.random().toString(16).slice(2) + Date.now().toString(16);
 }
