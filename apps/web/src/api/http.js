@@ -1,13 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-async function request(path, options = {}) {
+async function request(path, { method = "GET", body } = {}) {
   const res = await fetch(`${API_URL}${path}`, {
-    headers: {
-      Accept: "application/json",
-      ...(options.body ? { "Content-Type": "application/json" } : {}),
-      ...(options.headers || {}),
-    },
-    ...options,
+    method,
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined,
   });
 
   if (!res.ok) {
@@ -15,14 +12,12 @@ async function request(path, options = {}) {
     throw new Error(`API ${res.status}: ${txt || res.statusText}`);
   }
 
-  const contentType = res.headers.get("content-type") || "";
-  if (contentType.includes("application/json")) return res.json();
-  return res.text();
+  // Algunos endpoints podrían devolver 204 sin body
+  if (res.status === 204) return null;
+  return res.json();
 }
 
 export const apiGet = (path) => request(path, { method: "GET" });
-export const apiPost = (path, body) => request(path, { method: "POST", body: JSON.stringify(body) });
-export const apiPatch = (path, body) => request(path, { method: "PATCH", body: JSON.stringify(body) });
+export const apiPost = (path, body) => request(path, { method: "POST", body });
+export const apiPatch = (path, body) => request(path, { method: "PATCH", body });
 export const apiDelete = (path) => request(path, { method: "DELETE" });
-
-export default request;
