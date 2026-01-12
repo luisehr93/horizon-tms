@@ -44,6 +44,8 @@ export default function Clients() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
+  const [saving, setSaving] = useState(false);
+  const [modalErr, setModalErr] = useState("");
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(total / pageSize)), [total, pageSize]);
 
@@ -63,11 +65,13 @@ export default function Clients() {
 
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [search, isActive, page]);
 
-  function openCreate() {
-    setEditing(null);
-    setForm(emptyForm);
-    setModalOpen(true);
-  }
+function openCreate() {
+  setEditing(null);
+  setForm(emptyForm);
+  setModalErr("");
+  setModalOpen(true);
+}
+
 
   function openEdit(row) {
     setEditing(row);
@@ -83,23 +87,38 @@ export default function Clients() {
       isActive: !!row.isActive,
     });
     setModalOpen(true);
+    setModalErr("");
   }
 
-  async function onSave(e) {
-    e.preventDefault();
-    setErr("");
-    try {
-      if (!form.name.trim()) {
-        setErr("Name is required");
-        return;
-      }
-      if (editing) await updateClient(editing.id, form);
-      else await createClient(form);
-      setModalOpen(false);
-      await load();
-    } catch (e2) {
-      setErr(e2?.message || "Save failed");
-    }
+ async function onSave(e) {
+  e.preventDefault();
+  setModalErr("");
+
+  const name = (form.name || "").trim();
+  if (!name) {
+    setModalErr("Name is required");
+    return;
+  }
+
+  setSaving(true);
+  try {
+    const payload = { ...form, name };
+
+    if (editing) await updateClient(editing.id, payload);
+    else await createClient(payload);
+
+    setModalOpen(false);
+    setEditing(null);
+    setForm(emptyForm);
+
+    await load();
+  } catch (e2) {
+    setModalErr(e2?.message || "Save failed");
+  } finally {
+    setSaving(false);
+  }
+}
+
   }
 
   async function onDelete(row) {
@@ -217,6 +236,12 @@ export default function Clients() {
         onClose={() => setModalOpen(false)}
       >
         <form onSubmit={onSave} style={{ display: "grid", gap: 10 }}>
+          {modalErr ? ( 
+            <div style={{ padding: 10, borderRadius: 12, background: "rgba(255,0,0,0.12)", border: "1px solid rgba(255,0,0,0.25)" }}>
+              {modalErr}
+            </div>
+          ) : null}
+
           <div style={styles.grid2}>
             <label style={styles.label}>
               Name *
@@ -273,8 +298,10 @@ export default function Clients() {
             <button type="button" style={styles.secondaryBtn} onClick={() => setModalOpen(false)}>
               Cancel
             </button>
-            <button type="submit" style={styles.primaryBtn}>
-              Save
+            <button type="submit" disabled={saving} style={styles.primaryBtn}>
+              {saving ? "Saving..." : editing ? "Save Changes" : "Create Client"}
+            </button>
+
             </button>
           </div>
         </form>
